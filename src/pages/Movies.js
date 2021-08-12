@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import axios from "../axios";
 import MovieCard from "../components/MovieCard";
-import { getTrending } from "../utils/api";
+import { getMovie } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
 
 const useStyles = makeStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Home = () => {
+const Movies = () => {
   const [trending, setTrending] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const Home = () => {
     (async () => {
       try {
         setLoading(true);
-        const movies = await axios.get(`${getTrending}&page=${page}`);
+        const movies = await axios.get(`${getMovie}&page=${page}`);
 
         setTrending(movies.data.results);
         setLoading(false);
@@ -87,4 +87,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Movies;

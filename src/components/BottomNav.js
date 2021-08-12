@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import RestoreIcon from "@material-ui/icons/Restore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import MovieIcon from "@material-ui/icons/Movie";
 import SearchIcon from "@material-ui/icons/Search";
 import TvIcon from "@material-ui/icons/Tv";
+import { useHistory } from "react-router-dom";
 
 import colors from "../utils/colors";
 
@@ -28,21 +26,33 @@ const useStyles = makeStyles({
     zIndex: "100",
   },
   bottomNav: {
-    color: "white",
+    color: colors.secondary,
   },
 });
 
 const BottomNav = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const history = useHistory();
+
+  const onChangeHandler = (newValue) => {
+    setValue(newValue);
+    newValue === 0
+      ? history.push("/")
+      : newValue === 1
+      ? history.push("/movies")
+      : newValue === 2
+      ? history.push("/tvseries")
+      : newValue === 3
+      ? history.push("/search")
+      : history.push("/");
+  };
 
   return (
     <div className={classes.footer}>
       <BottomNavigation
         value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+        onChange={(event, newValue) => onChangeHandler(newValue)}
         showLabels
         className={classes.root}
       >
