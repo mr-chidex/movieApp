@@ -20,22 +20,28 @@ const useStyles = makeStyles({
 });
 
 const Movies = () => {
-  const [trending, setTrending] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [numberOfPages, setNumberOfPages] = useState(1);
+  const [errMessage, setErrMessage] = useState(null);
+
   const classes = useStyles();
 
   useEffect(() => {
     (async () => {
       try {
+        setErrMessage(null);
         setLoading(true);
         const movies = await axios.get(`${getMovie}&page=${page}`);
 
-        setTrending(movies.data.results);
+        setMovies(movies.data.results);
+        setNumberOfPages(movies.data.total_pages);
         setLoading(false);
         window.scroll(0, 0);
       } catch (error) {
         setLoading(false);
+        setErrMessage(error.message);
       }
     })();
   }, [page]);
@@ -45,9 +51,7 @@ const Movies = () => {
   }, []);
 
   const changePageHandler = (pageNum) => {
-    console.log(pageNum);
     setPage(pageNum);
-    // window.scroll(0, 0);
   };
 
   if (loading) {
@@ -64,25 +68,43 @@ const Movies = () => {
     );
   }
 
+  if (errMessage) {
+    return (
+      <h1
+        style={{
+          paddingTop: "20px",
+          textAlign: "center",
+          marginBottom: "60vh",
+        }}
+      >
+        {errMessage}
+      </h1>
+    );
+  }
+
   return (
     <main>
-      <h1 className="pageTitle">Trending</h1>
+      <h1 className="pageTitle">Discover Movies</h1>
       <section className={classes.root}>
-        {trending &&
-          trending.map((trend) => (
-            <div className={classes.cardContainer} key={trend.id}>
+        {movies &&
+          movies.map((movie) => (
+            <div className={classes.cardContainer} key={movie.id}>
               <MovieCard
-                title={trend.title || trend.name}
-                poster={trend.poster_path}
-                date={trend.first_air_date || trend.release_date}
-                mediaType={trend.media_type}
-                rating={trend.vote_average}
+                title={movie.title || movie.name}
+                poster={movie.poster_path}
+                date={movie.first_air_date || movie.release_date}
+                mediaType={movie.media_type}
+                rating={movie.vote_average}
               />
             </div>
           ))}
       </section>
 
-      <MoviePagination changePage={changePageHandler} />
+      <MoviePagination
+        numberOfPages={numberOfPages}
+        changePage={changePageHandler}
+        curPage={page}
+      />
     </main>
   );
 };

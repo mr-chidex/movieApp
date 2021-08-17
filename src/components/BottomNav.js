@@ -7,8 +7,19 @@ import MovieIcon from "@material-ui/icons/Movie";
 import SearchIcon from "@material-ui/icons/Search";
 import TvIcon from "@material-ui/icons/Tv";
 import { useHistory } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@material-ui/core";
 
 import colors from "../utils/colors";
+
+const darkTheme = createTheme({
+  palette: {
+    primary: {
+      light: "#42FF5B",
+      main: "#00ff22",
+      dark: "#096215",
+    },
+  },
+});
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +37,7 @@ const useStyles = makeStyles({
     zIndex: "100",
   },
   bottomNav: {
-    color: colors.secondary,
+    color: colors.darkSecondary,
   },
 });
 
@@ -49,36 +60,38 @@ const BottomNav = () => {
   };
 
   return (
-    <div className={classes.footer}>
-      <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => onChangeHandler(newValue)}
-        showLabels
-        className={classes.root}
-      >
-        <BottomNavigationAction
-          className={classes.bottomNav}
-          label="Trending"
-          sty
-          icon={<WhatshotIcon />}
-        />
-        <BottomNavigationAction
-          className={classes.bottomNav}
-          label="Movies"
-          icon={<MovieIcon />}
-        />
-        <BottomNavigationAction
-          className={classes.bottomNav}
-          label="Tv Series"
-          icon={<TvIcon />}
-        />
-        <BottomNavigationAction
-          className={classes.bottomNav}
-          label="Search"
-          icon={<SearchIcon />}
-        />
-      </BottomNavigation>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <div className={classes.footer}>
+        <BottomNavigation
+          value={value}
+          onChange={(event, newValue) => onChangeHandler(newValue)}
+          showLabels
+          className={classes.root}
+        >
+          <BottomNavigationAction
+            className={classes.bottomNav}
+            label="Trending"
+            sty
+            icon={<WhatshotIcon />}
+          />
+          <BottomNavigationAction
+            className={classes.bottomNav}
+            label="Movies"
+            icon={<MovieIcon />}
+          />
+          <BottomNavigationAction
+            className={classes.bottomNav}
+            label="Tv Series"
+            icon={<TvIcon />}
+          />
+          <BottomNavigationAction
+            className={classes.bottomNav}
+            label="Search"
+            icon={<SearchIcon />}
+          />
+        </BottomNavigation>
+      </div>
+    </ThemeProvider>
   );
 };
 

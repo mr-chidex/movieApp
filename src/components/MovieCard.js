@@ -8,8 +8,10 @@ import Typography from "@material-ui/core/Typography";
 
 import { defaultImage, imageBaseUrl } from "../utils/api";
 import colors from "../utils/colors";
+import { Badge } from "@material-ui/core";
 
 const useStyles = makeStyles({
+  cardContainer: { position: "relative" },
   root: {
     width: 220,
     height: 350,
@@ -21,12 +23,15 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
   },
   badge: {
-    backgroundColor: colors.darkSecondary,
-    color: colors.white,
-    padding: "0.1rem 0.5rem",
-    fontSize: 13,
-    borderRadius: "50%",
-    boxShadow: "2px 5px 8px rgba(0,0,0,0.4)",
+    // backgroundColor: colors.darkSecondary,
+    // color: colors.white,
+    // padding: "0.1rem 0.5rem",
+    // fontSize: 13,
+    // borderRadius: "50%",
+    // boxShadow: "2px 5px 8px rgba(0,0,0,0.4)",
+    position: "absolute",
+    right: 8,
+    top: 5,
   },
   mediaType: {
     backgroundColor: colors.darkSecondary,
@@ -40,7 +45,12 @@ const MovieCard = ({ title, poster, date, mediaType, rating }) => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.cardContainer}>
+      <Badge
+        className={classes.badge}
+        badgeContent={rating}
+        color="secondary"
+      />
       <Card className={[classes.root, "card-container"].join(" ")}>
         <CardActionArea className={classes.cardArea}>
           <CardMedia
@@ -54,7 +64,7 @@ const MovieCard = ({ title, poster, date, mediaType, rating }) => {
             <Typography gutterBottom variant="h5" align="center" component="h2">
               {title} {date && `(${date?.split("-")[0]})`}
             </Typography>
-            <div className={classes.movieInfo}>
+            {/* <div className={classes.movieInfo}>
               {mediaType && (
                 <Typography
                   className={classes.mediaType}
@@ -73,7 +83,7 @@ const MovieCard = ({ title, poster, date, mediaType, rating }) => {
               >
                 {rating}
               </Typography>
-            </div>
+            </div> */}
           </CardContent>
         </CardActionArea>
       </Card>

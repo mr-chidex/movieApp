@@ -8,6 +8,7 @@ export const getAdventure = `/discover/movie?api_key=${process.env.REACT_APP_API
 export const getMusic = `/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&with_genres=10402`;
 export const getScienceFiction = `/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&with_genres=878`;
 export const getMovie = `/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc`;
+export const getSeries = `/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc`;
 export const getTrending = `/trending/all/day?api_key=${process.env.REACT_APP_API_KEY}`;
 
 export const imageBaseUrl = "https://image.tmdb.org/t/p/original";
