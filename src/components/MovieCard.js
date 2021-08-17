@@ -46,11 +46,7 @@ const MovieCard = ({ title, poster, date, mediaType, rating }) => {
 
   return (
     <div className={classes.cardContainer}>
-      <Badge
-        className={classes.badge}
-        badgeContent={rating}
-        color="secondary"
-      />
+      <Badge className={classes.badge} badgeContent={rating} color="primary" />
       <Card className={[classes.root, "card-container"].join(" ")}>
         <CardActionArea className={classes.cardArea}>
           <CardMedia

@@ -32,6 +32,8 @@ const MoviePagination = ({ changePage, numberOfPages = 4, curPage }) => {
     changePage(page);
   };
 
+  if (numberOfPages < 1) return null;
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.root}>

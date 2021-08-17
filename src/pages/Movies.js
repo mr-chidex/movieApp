@@ -6,6 +6,7 @@ import axios from "../axios";
 import MovieCard from "../components/MovieCard";
 import { getMovie } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
+import Genres from "../components/Genres";
 
 const useStyles = makeStyles({
   root: {
@@ -25,6 +26,8 @@ const Movies = () => {
   const [loading, setLoading] = useState(false);
   const [numberOfPages, setNumberOfPages] = useState(1);
   const [errMessage, setErrMessage] = useState(null);
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   const classes = useStyles();
 
@@ -85,6 +88,15 @@ const Movies = () => {
   return (
     <main>
       <h1 className="pageTitle">Discover Movies</h1>
+      <Genres
+        type="movie"
+        genres={genres}
+        setGenres={setGenres}
+        selectedGenres={selectedGenres}
+        setSelectedGenres={setSelectedGenres}
+        numberOfPages={numberOfPages}
+        setPage={setPage}
+      />
       <section className={classes.root}>
         {movies &&
           movies.map((movie) => (

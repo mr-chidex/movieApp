@@ -24,6 +24,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errMessage, setErrMessage] = useState(null);
+
   const classes = useStyles();
 
   useEffect(() => {
