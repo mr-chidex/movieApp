@@ -56,7 +56,7 @@ const Genres = ({
           label={genre.name}
           clickable
           onClick={() => chipHandler(genre)}
-          color={selected === genre.id ? "primary" : ""}
+          color={selected === genre.id ? "primary" : "default"}
         />
       ))}
     </div>

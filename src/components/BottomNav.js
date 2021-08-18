@@ -45,6 +45,9 @@ const BottomNav = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const history = useHistory();
+  // const location = useLocation();
+
+  // console.log(location);
 
   const onChangeHandler = (newValue) => {
     setValue(newValue);
