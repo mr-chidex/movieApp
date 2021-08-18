@@ -6,6 +6,7 @@ import axios from "../axios";
 import MovieCard from "../components/MovieCard";
 import { getSeries } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
+import Genres from "../components/Genres";
 
 const useStyles = makeStyles({
   root: {
@@ -20,12 +21,15 @@ const useStyles = makeStyles({
 });
 
 const TvSeries = () => {
-  const [movies, setMovies] = useState([]);
+  const [series, setSeries] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [numberOfPages, setNumberOfPages] = useState(1);
   const [errMessage, setErrMessage] = useState(null);
+  const [genres, setGenres] = useState([]);
+  const [selected, setSelected] = useState("");
 
+  const selectedGenre = 28;
   const classes = useStyles();
 
   useEffect(() => {
@@ -33,10 +37,12 @@ const TvSeries = () => {
       try {
         setErrMessage(null);
         setLoading(true);
-        const movies = await axios.get(`${getSeries}&page=${page}`);
+        const series = await axios.get(
+          `${getSeries}&page=${page}&with_genres=${selected}    `
+        );
 
-        setMovies(movies.data.results);
-        setNumberOfPages(movies.data.total_pages);
+        setSeries(series.data.results);
+        setNumberOfPages(series.data.total_pages);
         setLoading(false);
         window.scroll(0, 0);
       } catch (error) {
@@ -44,7 +50,7 @@ const TvSeries = () => {
         setErrMessage(error.message);
       }
     })();
-  }, [page]);
+  }, [page, selectedGenre, selected]);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -52,6 +58,10 @@ const TvSeries = () => {
 
   const changePageHandler = (pageNum) => {
     setPage(pageNum);
+  };
+
+  const selectHandler = (gen) => {
+    setSelected(gen.id);
   };
 
   if (loading) {
@@ -84,17 +94,26 @@ const TvSeries = () => {
 
   return (
     <main>
-      <h1 className="pageTitle">Tv Series</h1>
+      <h1 className="pageTitle">Discover Movies</h1>
+      <Genres
+        type="tv"
+        genres={genres}
+        setGenres={setGenres}
+        numberOfPages={numberOfPages}
+        setPage={setPage}
+        selected={selected}
+        selectHandler={selectHandler}
+      />
       <section className={classes.root}>
-        {movies &&
-          movies.map((movie) => (
-            <div className={classes.cardContainer} key={movie.id}>
+        {series &&
+          series.map((series) => (
+            <div className={classes.cardContainer} key={series.id}>
               <MovieCard
-                title={movie.title || movie.name}
-                poster={movie.poster_path}
-                date={movie.first_air_date || movie.release_date}
-                mediaType={movie.media_type}
-                rating={movie.vote_average}
+                title={series.title || series.name}
+                poster={series.poster_path}
+                date={series.first_air_date || series.release_date}
+                mediaType={series.media_type}
+                rating={series.vote_average}
               />
             </div>
           ))}

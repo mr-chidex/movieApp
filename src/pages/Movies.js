@@ -26,9 +26,10 @@ const Movies = () => {
   const [loading, setLoading] = useState(false);
   const [numberOfPages, setNumberOfPages] = useState(1);
   const [errMessage, setErrMessage] = useState(null);
-  const [selectedGenres, setSelectedGenres] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [selected, setSelected] = useState("");
 
+  const selectedGenre = 28;
   const classes = useStyles();
 
   useEffect(() => {
@@ -36,7 +37,9 @@ const Movies = () => {
       try {
         setErrMessage(null);
         setLoading(true);
-        const movies = await axios.get(`${getMovie}&page=${page}`);
+        const movies = await axios.get(
+          `${getMovie}&page=${page}&with_genres=${selected}    `
+        );
 
         setMovies(movies.data.results);
         setNumberOfPages(movies.data.total_pages);
@@ -47,7 +50,7 @@ const Movies = () => {
         setErrMessage(error.message);
       }
     })();
-  }, [page]);
+  }, [page, selectedGenre, selected]);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -55,6 +58,10 @@ const Movies = () => {
 
   const changePageHandler = (pageNum) => {
     setPage(pageNum);
+  };
+
+  const selectHandler = (gen) => {
+    setSelected(gen.id);
   };
 
   if (loading) {
@@ -92,10 +99,10 @@ const Movies = () => {
         type="movie"
         genres={genres}
         setGenres={setGenres}
-        selectedGenres={selectedGenres}
-        setSelectedGenres={setSelectedGenres}
         numberOfPages={numberOfPages}
         setPage={setPage}
+        selected={selected}
+        selectHandler={selectHandler}
       />
       <section className={classes.root}>
         {movies &&
