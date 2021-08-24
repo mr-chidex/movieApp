@@ -93,6 +93,7 @@ const Home = () => {
                 date={trend.first_air_date || trend.release_date}
                 mediaType={trend.media_type}
                 rating={trend.vote_average}
+                id={trend.id}
               />
             </div>
           ))}

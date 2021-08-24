@@ -7,6 +7,7 @@ import MovieCard from "../components/MovieCard";
 import { getMovie } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
 import Genres from "../components/Genres";
+import MovieModal from "../components/MovieModal";
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +25,7 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [numberOfPages, setNumberOfPages] = useState(1);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const [errMessage, setErrMessage] = useState(null);
   const [genres, setGenres] = useState([]);
   const [selected, setSelected] = useState("");
@@ -92,6 +93,8 @@ const Movies = () => {
     );
   }
 
+  console.log(movies);
+
   return (
     <main>
       <h1 className="pageTitle">Discover Movies</h1>
@@ -104,6 +107,9 @@ const Movies = () => {
         selected={selected}
         selectHandler={selectHandler}
       />
+
+      <MovieModal />
+
       <section className={classes.root}>
         {movies &&
           movies.map((movie) => (
@@ -112,8 +118,9 @@ const Movies = () => {
                 title={movie.title || movie.name}
                 poster={movie.poster_path}
                 date={movie.first_air_date || movie.release_date}
-                mediaType={movie.media_type}
+                mediaType="movie"
                 rating={movie.vote_average}
+                id={movie.id}
               />
             </div>
           ))}

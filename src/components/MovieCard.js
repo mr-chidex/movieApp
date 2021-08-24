@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { defaultImage, imageBaseUrl } from "../utils/api";
 import colors from "../utils/colors";
 import { Badge } from "@material-ui/core";
+import MovieModal from "./MovieModal";
 
 const useStyles = makeStyles({
   cardContainer: { position: "relative" },
@@ -41,49 +42,60 @@ const useStyles = makeStyles({
   },
 });
 
-const MovieCard = ({ title, poster, date, mediaType, rating }) => {
+const MovieCard = ({ title, poster, date, mediaType, rating, id }) => {
   const classes = useStyles();
-
+  console.log("id------", id);
   return (
-    <div className={classes.cardContainer}>
-      <Badge className={classes.badge} badgeContent={rating} color="primary" />
-      <Card className={[classes.root, "card-container"].join(" ")}>
-        <CardActionArea className={classes.cardArea}>
-          <CardMedia
-            component="img"
-            alt="Contemplative Reptile"
-            height="200"
-            image={poster ? `${imageBaseUrl}${poster}` : `${defaultImage}`}
-            title={title}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" align="center" component="h2">
-              {title} {date && `(${date?.split("-")[0]})`}
-            </Typography>
-            {/* <div className={classes.movieInfo}>
-              {mediaType && (
+    <MovieModal mediaType={mediaType} id={id}>
+      <div className={classes.cardContainer}>
+        <Badge
+          className={classes.badge}
+          badgeContent={rating}
+          color="primary"
+        />
+        <Card className={[classes.root, "card-container"].join(" ")}>
+          <CardActionArea className={classes.cardArea}>
+            <CardMedia
+              component="img"
+              alt="Contemplative Reptile"
+              height="200"
+              image={poster ? `${imageBaseUrl}${poster}` : `${defaultImage}`}
+              title={title}
+            />
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                align="center"
+                component="h2"
+              >
+                {title} {date && `(${date?.split("-")[0]})`}
+              </Typography>
+              <div className={classes.movieInfo}>
+                {mediaType && (
+                  <Typography
+                    className={classes.mediaType}
+                    gutterBottom
+                    variant="body1"
+                    component="h2"
+                  >
+                    {mediaType === "tv" ? "series" : mediaType}
+                  </Typography>
+                )}
                 <Typography
-                  className={classes.mediaType}
+                  className={classes.badge}
                   gutterBottom
                   variant="body1"
                   component="h2"
                 >
-                  {mediaType === "tv" ? "series" : mediaType}
+                  {rating}
                 </Typography>
-              )}
-              <Typography
-                className={classes.badge}
-                gutterBottom
-                variant="body1"
-                component="h2"
-              >
-                {rating}
-              </Typography>
-            </div> */}
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </div>
+              </div>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </div>
+    </MovieModal>
   );
 };
 

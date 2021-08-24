@@ -1,4 +1,5 @@
 @import "./header.scss";
+@import "react-alice-carousel/lib/scss/alice-carousel.scss";
 
 * {
   box-sizing: border-box;
@@ -30,11 +31,11 @@ main {
 // .card-container {
 //   transition: all 4s ease-in-out;
 // }
-.card-container:hover {
-  background-color: #000000;
-  transition: all 0.4s ease-in-out;
-  color: white;
-}
+// .card-container:hover {
+//   background-color: #000000;
+//   transition: all 0.4s ease-in-out;
+//   color: white;
+// }
 
 .pageTitle {
   text-align: center;
@@ -46,5 +47,69 @@ main {
 
   @media (min-width: 1000px) {
     font-size: 1.8rem;
+  }
+}
+
+.modal_content {
+  display: flex;
+  flex-direction: column;
+
+  .imageContainer {
+    width: 100%;
+    // height: 300px;
+    .image {
+      // width: 100%;
+      object-fit: cover;
+      height: 300px;
+    }
+  }
+
+  .content_container {
+    padding: 0 1rem;
+
+    .movie_title {
+      text-align: center;
+    }
+
+    .movie_tagline {
+      margin: 0.7rem 0;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .movie_description {
+      border: solid 2px rgb(4, 63, 19);
+      padding: 0.5rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      line-height: 1.5;
+    }
+
+    .movie_credits {
+      width: 100%;
+    }
+  }
+}
+
+.movie_carousel {
+  margin: 1rem 0;
+
+  .carouselCredits {
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+    padding: 10px;
+    text-align: center;
+
+    .carousel_name {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .carousel_image {
+      height: 150px;
+      width: 100%;
+      object-fit: cover;
+    }
   }
 }
