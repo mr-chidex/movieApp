@@ -44,7 +44,6 @@ const useStyles = makeStyles({
 
 const MovieCard = ({ title, poster, date, mediaType, rating, id }) => {
   const classes = useStyles();
-  console.log("id------", id);
   return (
     <MovieModal mediaType={mediaType} id={id}>
       <div className={classes.cardContainer}>

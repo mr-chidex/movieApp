@@ -7,7 +7,6 @@ import MovieCard from "../components/MovieCard";
 import { getMovie } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
 import Genres from "../components/Genres";
-import MovieModal from "../components/MovieModal";
 
 const useStyles = makeStyles({
   root: {
@@ -93,8 +92,6 @@ const Movies = () => {
     );
   }
 
-  console.log(movies);
-
   return (
     <main>
       <h1 className="pageTitle">Discover Movies</h1>
@@ -107,8 +104,6 @@ const Movies = () => {
         selected={selected}
         selectHandler={selectHandler}
       />
-
-      <MovieModal />
 
       <section className={classes.root}>
         {movies &&

@@ -94,7 +94,7 @@ const TvSeries = () => {
 
   return (
     <main>
-      <h1 className="pageTitle">Discover Movies</h1>
+      <h1 className="pageTitle">Discover Tv Series</h1>
       <Genres
         type="tv"
         genres={genres}
@@ -112,8 +112,9 @@ const TvSeries = () => {
                 title={series.title || series.name}
                 poster={series.poster_path}
                 date={series.first_air_date || series.release_date}
-                mediaType={series.media_type}
+                mediaType={series.media_type || "tv"}
                 rating={series.vote_average}
+                id={series.id}
               />
             </div>
           ))}

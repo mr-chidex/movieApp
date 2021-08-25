@@ -6,6 +6,7 @@ import axios from "../axios";
 import MovieCard from "../components/MovieCard";
 import { getTrending } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
+import Loader from "../components/Loader";
 
 const useStyles = makeStyles({
   root: {
@@ -33,7 +34,7 @@ const Home = () => {
         setErrMessage(null);
         setLoading(true);
         const movies = await axios.get(`${getTrending}&page=${page}`);
-        console.log(movies);
+
         setTrending(movies.data.results);
         setLoading(false);
         window.scroll(0, 0);
@@ -61,7 +62,7 @@ const Home = () => {
           marginBottom: "60vh",
         }}
       >
-        Loading...
+        <Loader />
       </h1>
     );
   }

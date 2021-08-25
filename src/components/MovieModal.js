@@ -8,7 +8,6 @@ import MovieTrailer from "movie-trailer";
 import { useCallback } from "react";
 
 import axios from "../axios";
-import colors from "../utils/colors";
 import Carousel from "./Carousel";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,15 +15,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: "#290D0D",
-    color: colors.white,
-    border: "2px solid #000",
-    width: "90%",
-    height: "auto",
-    boxShadow: theme.shadows[5],
-    padding: "0.6rem",
   },
 }));
 
@@ -54,6 +44,7 @@ export default function MovieModal({ children, mediaType, id }) {
     const { data } = await axios.get(
       `/${mediaType}/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
+
     setCredits(data.cast);
   };
 
@@ -68,25 +59,25 @@ export default function MovieModal({ children, mediaType, id }) {
 
   const trailerHandler = useCallback(async () => {
     try {
-      if (trailerId) {
-        setTrailerId("");
-      } else {
-        const url = await MovieTrailer(
-          movieData?.title || movieData?.original_title
-        );
-        const trailerUrl = url ? url.split("=")[1] : "";
-        setTrailerId(trailerUrl);
-      }
+      const url = await MovieTrailer(
+        movieData?.title || movieData?.original_title || movieData?.name
+      );
+      const trailerUrl = url ? url.split("=")[1] : "";
+      setTrailerId(trailerUrl);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
-  }, [trailerId, movieData]);
+  }, [movieData]);
+
+  useEffect(() => {
+    fetchMovieData();
+    fetchMovieCredits();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     trailerHandler();
-    fetchMovieData();
-    fetchMovieCredits();
-  }, []);
+  }, [trailerId, trailerHandler]);
 
   return (
     <div>
@@ -106,7 +97,7 @@ export default function MovieModal({ children, mediaType, id }) {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <div className="modal">
             <section className="modal_content">
               <div className="imageContainer">
                 {trailerId && <YouTube videoId={trailerId} opts={opts} />}
@@ -114,16 +105,20 @@ export default function MovieModal({ children, mediaType, id }) {
 
               <div className="content_container">
                 <h2 className="movie_title">
-                  {movieData?.title || movieData?.original_title}{" "}
+                  {movieData?.title ||
+                    movieData?.original_title ||
+                    movieData?.name}{" "}
                   {movieData?.release_date &&
                     `(${movieData?.release_date.split("-")[0]})`}
                 </h2>
 
                 <p className="movie_tagline">{movieData?.tagline || "..."}</p>
 
-                <div className="movie_description">
-                  <p>{movieData?.overview}</p>
-                </div>
+                {movieData?.overview && (
+                  <div className="movie_description">
+                    <p>{movieData?.overview}</p>
+                  </div>
+                )}
               </div>
             </section>
             <div className="movie_carousel">

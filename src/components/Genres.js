@@ -29,7 +29,7 @@ const Genres = ({
 
       setGenres(result.data.genres);
     } catch (err) {
-      console.log(err.message);
+      // console.log(err.message);
     }
   };
 
@@ -39,6 +39,7 @@ const Genres = ({
     return () => {
       setGenres([]);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const chipHandler = (genre) => {
