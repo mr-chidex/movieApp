@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 
 const Search = () => {
   const [type, setType] = useState(0);
-  const [page, setPage] = useState(1);
+  const [, setPage] = useState(1);
 
   const classes = useStyles();
 

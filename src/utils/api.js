@@ -13,4 +13,4 @@ export const getTrending = `/trending/all/day?api_key=${process.env.REACT_APP_AP
 
 export const imageBaseUrl = "https://image.tmdb.org/t/p/original";
 export const defaultImage =
-  "https://www.movienewz.com/img/films/poster-holde.jpg";
+  "https://www.movienewz.com/img/films/poster-holder.jpg";

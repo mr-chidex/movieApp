@@ -33,7 +33,7 @@ const Home = () => {
         setErrMessage(null);
         setLoading(true);
         const movies = await axios.get(`${getTrending}&page=${page}`);
-
+        console.log(movies);
         setTrending(movies.data.results);
         setLoading(false);
         window.scroll(0, 0);
