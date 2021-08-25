@@ -7,6 +7,7 @@ import MovieCard from "../components/MovieCard";
 import { getMovie } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
 import Genres from "../components/Genres";
+import Loader from "../components/Loader";
 
 const useStyles = makeStyles({
   root: {
@@ -73,7 +74,7 @@ const Movies = () => {
           marginBottom: "60vh",
         }}
       >
-        Loading...
+        <Loader />
       </h1>
     );
   }

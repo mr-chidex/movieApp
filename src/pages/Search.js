@@ -11,6 +11,7 @@ import { Tab } from "@material-ui/core";
 import axios from "../axios";
 import MovieCard from "../components/MovieCard";
 import MoviePagination from "../components/MoviePagination";
+import Loader from "../components/Loader";
 
 const darkTheme = createTheme({
   palette: {
@@ -113,7 +114,7 @@ const Search = () => {
         {/* <form onSubmit={fetchSearch}> */}
         <div className={classes.root}>
           <TextField
-            label="Search"
+            label="Search ..."
             variant="filled"
             className={classes.search}
             color="primary"
@@ -141,11 +142,6 @@ const Search = () => {
           <Tab className={classes.tab} label="Search Tv Series" />
         </Tabs>
 
-        {searchText &&
-          movies.length < 1 &&
-          !loading &&
-          (type ? <h2>No Series Found</h2> : <h2>No Movies Found</h2>)}
-
         {loading ? (
           <h1
             style={{
@@ -154,7 +150,7 @@ const Search = () => {
               marginBottom: "60vh",
             }}
           >
-            Searching...
+            <Loader />
           </h1>
         ) : (
           <section className={classes.rootCard}>
