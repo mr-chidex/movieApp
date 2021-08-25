@@ -39,7 +39,6 @@ const Genres = ({
     return () => {
       setGenres([]);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const chipHandler = (genre) => {
