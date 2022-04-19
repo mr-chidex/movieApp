@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     top: 5,
   },
   mediaType: {
-    backgroundColor: colors.darkSecondary,
+    backgroundColor: colors.secondary,
     color: colors.white,
     padding: "0.1rem 0.5rem",
     fontSize: 13,
