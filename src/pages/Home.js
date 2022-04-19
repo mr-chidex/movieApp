@@ -83,7 +83,7 @@ const Home = () => {
 
   return (
     <main>
-      <h1 className="pageTitle">Trendign Movies</h1>
+      <h1 className="pageTitle">Trending Movies</h1>
       <section className={classes.root}>
         {trending &&
           trending.map((trend) => (
