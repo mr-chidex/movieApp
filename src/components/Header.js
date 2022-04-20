@@ -53,7 +53,7 @@ export const Header = ({ handleChangeMode, dark }) => {
           </div>
         </Toolbar>
       </AppBar>
-      <Toolbar />
+      {/* <Toolbar /> */}
     </header>
   );
 };
