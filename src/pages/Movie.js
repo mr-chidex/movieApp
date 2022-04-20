@@ -162,37 +162,39 @@ export default function Movie({ children }) {
       </div>
 
       {/* cast */}
-      <section className={classes.cast}>
-        <h1> Top Billed Casts</h1>
+      {credits?.length > 1 && (
+        <section className={classes.cast}>
+          <h1> Top Billed Casts</h1>
 
-        <Grid container spacing={2}>
-          {credits?.slice(0, limit)?.map((credit, index) => (
-            <Grid key={index} item xs={6} sm={4} md={2}>
-              <div>
-                <img
-                  style={{ width: "100%" }}
-                  src={
-                    credit?.profile_path
-                      ? `${imageBaseUrl}${credit?.profile_path}`
-                      : `${defaultImage}`
-                  }
-                  alt={credit?.name}
-                />
+          <Grid container spacing={2}>
+            {credits?.slice(0, limit)?.map((credit, index) => (
+              <Grid key={index} item xs={6} sm={4} md={2}>
+                <div>
+                  <img
+                    style={{ width: "100%" }}
+                    src={
+                      credit?.profile_path
+                        ? `${imageBaseUrl}${credit?.profile_path}`
+                        : `${defaultImage}`
+                    }
+                    alt={credit?.name}
+                  />
 
-                <small>{credit?.name}</small>
-              </div>
-            </Grid>
-          ))}
-        </Grid>
-      </section>
+                  <small>{credit?.name}</small>
+                </div>
+              </Grid>
+            ))}
+          </Grid>
+        </section>
+      )}
 
       {/* similar movies */}
-      <section className={classes.similarMovies}>
-        <h1> Similar Movies</h1>
+      {similarMovies?.length > 1 && (
+        <section className={classes.similarMovies}>
+          <h1> Similar Movies</h1>
 
-        <section className={classes.cardRoot}>
-          {similarMovies &&
-            similarMovies.map((movie) => (
+          <section className={classes.cardRoot}>
+            {similarMovies.map((movie) => (
               <div className={classes.cardContainer} key={movie.id}>
                 <MovieCard
                   title={movie.title || movie.name}
@@ -204,8 +206,9 @@ export default function Movie({ children }) {
                 />
               </div>
             ))}
+          </section>
         </section>
-      </section>
+      )}
     </main>
   );
 }
