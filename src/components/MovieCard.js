@@ -17,28 +17,25 @@ const useStyles = makeStyles({
     width: 220,
     height: 350,
     cursor: "pointer",
-    borderRadius: 10,
   },
   movieInfo: {
     display: "flex",
     justifyContent: "space-between",
   },
   badge: {
-    // backgroundColor: colors.darkSecondary,
-    // color: colors.white,
-    // padding: "0.1rem 0.5rem",
-    // fontSize: 13,
-    // borderRadius: "50%",
-    // boxShadow: "2px 5px 8px rgba(0,0,0,0.4)",
     position: "absolute",
     right: 8,
     top: 5,
   },
   mediaType: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.darkSecondary,
     color: colors.white,
+    fontWeight: "bold",
     padding: "0.1rem 0.5rem",
     fontSize: 13,
+    position: "absolute",
+    top: 10,
+    left: 10,
   },
 });
 
@@ -50,7 +47,7 @@ const MovieCard = ({ title, poster, date, mediaType, rating, id }) => {
         <Badge
           className={classes.badge}
           badgeContent={rating}
-          color="primary"
+          color="secondary"
         />
         <Card className={[classes.root, "card-container"].join(" ")}>
           <CardActionArea className={classes.cardArea}>
@@ -64,7 +61,7 @@ const MovieCard = ({ title, poster, date, mediaType, rating, id }) => {
             <CardContent>
               <Typography
                 gutterBottom
-                variant="h5"
+                variant="h6"
                 align="center"
                 component="h2"
               >
@@ -81,14 +78,6 @@ const MovieCard = ({ title, poster, date, mediaType, rating, id }) => {
                     {mediaType === "tv" ? "series" : mediaType}
                   </Typography>
                 )}
-                <Typography
-                  className={classes.badge}
-                  gutterBottom
-                  variant="body1"
-                  component="h2"
-                >
-                  {rating}
-                </Typography>
               </div>
             </CardContent>
           </CardActionArea>

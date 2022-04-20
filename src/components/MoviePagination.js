@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import { createTheme, ThemeProvider } from "@material-ui/core";
+import colors from "../utils/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,9 +19,9 @@ const darkTheme = createTheme({
   palette: {
     type: "dark",
     primary: {
-      light: "#42FF5B",
-      main: "#e2364d",
-      dark: "#096215",
+      light: colors.lightSecondary,
+      main: colors.secondary,
+      dark: colors.darkSecondary,
     },
   },
 });

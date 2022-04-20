@@ -14,9 +14,9 @@ import colors from "../utils/colors";
 const darkTheme = createTheme({
   palette: {
     primary: {
-      light: "#42FF5B",
-      main: "#e2364d",
-      dark: "#096215",
+      light: colors.lightSecondary,
+      main: colors.secondary,
+      dark: colors.darkSecondary,
     },
   },
 });
