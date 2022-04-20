@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import BottomNav from "./components/BottomNav";
 import { Header } from "./components/Header";
 import Home from "./pages/Home";
+import Movie from "./pages/Movie";
 import Movies from "./pages/Movies";
 import Search from "./pages/Search";
 import TvSeries from "./pages/TvSeries";
@@ -49,10 +50,11 @@ function App() {
       {/**body */}
       <Container>
         <Switch>
-          <Route component={Movies} path="/movies" />
-          <Route component={TvSeries} path="/tvseries" />
-          <Route component={Search} path="/search" />
-          <Route component={Home} path="/" />
+          <Route exact component={Movies} path="/movies" />
+          <Route exact component={Movie} path="/movies/:mediaType/:movieId" />
+          <Route exact component={TvSeries} path="/tvseries" />
+          <Route exact component={Search} path="/search" />
+          <Route exact component={Home} path="/" />
         </Switch>
       </Container>
 

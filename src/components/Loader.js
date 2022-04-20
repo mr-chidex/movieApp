@@ -12,7 +12,7 @@ function Loader() {
         justifyContent: "center",
       }}
     >
-      <FadeLoader color={colors.secondary} size={200} />
+      <FadeLoader color={colors.secondary} size={300} />
     </div>
   );
 }

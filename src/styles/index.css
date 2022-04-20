@@ -19,6 +19,7 @@ code {
 
 main {
   margin-bottom: 80px;
+  margin-top: 5rem;
 }
 
 .pageTitle {
@@ -28,6 +29,7 @@ main {
   font-size: 1.3rem;
   margin-bottom: 1rem;
   font-weight: bold;
+  color: #e2364d;
 }
 
 @media (min-width: 1000px) {
