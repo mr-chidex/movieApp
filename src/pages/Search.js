@@ -18,16 +18,19 @@ const darkTheme = createTheme({
   palette: {
     type: "dark",
     primary: {
-      main: colors.white,
+      main: colors.secondary,
     },
   },
 });
 
 const useStyles = makeStyles({
   root: { display: "flex", margin: "2rem 0" },
-  search: { flex: 1 },
+  search: {
+    flex: 1,
+    backgroundColor: colors.black,
+  },
   tabs: { marginBottom: "1rem" },
-  tab: { width: "50%" },
+  tab: { width: "50%", color: colors.secondary },
   rootCard: {
     display: "flex",
     flexDirection: "row",
@@ -100,7 +103,7 @@ const Search = () => {
               placeholder="Search..."
               variant="filled"
               className={classes.search}
-              color="primary"
+              // color="primary"
               onChange={(e) => setSearchText(e.target.value)}
             />
             <Button

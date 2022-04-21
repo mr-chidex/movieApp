@@ -15,6 +15,8 @@ const useStyles = makeStyles({
   root: {
     height: 350,
     cursor: "pointer",
+    backgroundColor: colors.primary,
+    color: colors.white,
   },
   movieInfo: {
     display: "flex",
