@@ -34,10 +34,10 @@ Copyright (c) mr-chidex
 
 ## Preview
 
-  <img width="500" alt="png" src="/assets/1.png" />
-  <img width="500" alt="png" src="/assets/2.png" />
-  <img width="500" alt="png" src="/assets/3.png" />
-  <img width="500" alt="png" src="/assets/4.png" />
-  <img width="500" alt="png" src="/assets/5.png" />
-  <img width="500" alt="png" src="/assets/6.png" />
-  <img width="500" alt="png" src="/assets/7.png" />
+  <img width="500" alt="png" src="./public/assets/1.png" />
+  <img width="500" alt="png" src="./public/assets/2.png" />
+  <img width="500" alt="png" src="./public/assets/3.png" />
+  <img width="500" alt="png" src="./public/assets/4.png" />
+  <img width="500" alt="png" src="./public/assets/5.png" />
+  <img width="500" alt="png" src="./public/assets/6.png" />
+  <img width="500" alt="png" src="./public/assets/7.png" />
