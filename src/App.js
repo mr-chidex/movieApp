@@ -13,13 +13,17 @@ import colors from "./utils/colors";
 
 function App() {
   const darkMode = localStorage.getItem("darkMode");
-  const [dark, setDark] = useState(darkMode === "yes" ? true : false);
+  const [dark, setDark] = useState(
+    darkMode === "yes" ? true : darkMode === "no" ? false : true
+  );
 
   useEffect(() => {
     if (darkMode === "yes") {
       setDark(true);
-    } else {
+    } else if (darkMode === "no") {
       setDark(false);
+    } else {
+      setDark(true);
     }
   }, [darkMode]);
 

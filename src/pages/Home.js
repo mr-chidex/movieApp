@@ -7,6 +7,7 @@ import MovieCard from "../components/MovieCard";
 import { getTrending } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
 import Loader from "../components/Loader";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -84,20 +85,24 @@ const Home = () => {
   return (
     <main>
       <h1 className="pageTitle">Trending Movies</h1>
-      <section className={classes.root}>
-        {trending &&
-          trending.map((trend) => (
-            <div className={classes.cardContainer} key={trend.id}>
-              <MovieCard
-                title={trend.title || trend.name}
-                poster={trend.poster_path}
-                date={trend.first_air_date || trend.release_date}
-                mediaType={trend.media_type}
-                rating={trend.vote_average}
-                id={trend.id}
-              />
-            </div>
+
+      <section>
+        <Grid container spacing={2}>
+          {trending?.map((trend, index) => (
+            <Grid key={index} item xs={6} sm={4} md={3}>
+              <div className={classes.cardContainer} key={trend.id}>
+                <MovieCard
+                  title={trend.title || trend.name}
+                  poster={trend.poster_path}
+                  date={trend.first_air_date || trend.release_date}
+                  mediaType={trend.media_type}
+                  rating={trend.vote_average}
+                  id={trend.id}
+                />
+              </div>
+            </Grid>
           ))}
+        </Grid>
       </section>
 
       <MoviePagination changePage={changePageHandler} curPage={page} />
