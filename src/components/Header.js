@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
+    color: colors.secondary,
   },
 });
 

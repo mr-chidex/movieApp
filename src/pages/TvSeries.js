@@ -8,6 +8,8 @@ import { getSeries } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
 import Genres from "../components/Genres";
 import Loader from "../components/Loader";
+import { Grid } from "@material-ui/core";
+import ErrorMessage from "../components/ErrorMessage";
 
 const useStyles = makeStyles({
   root: {
@@ -66,31 +68,11 @@ const TvSeries = () => {
   };
 
   if (loading) {
-    return (
-      <h1
-        style={{
-          paddingTop: "20px",
-          textAlign: "center",
-          marginBottom: "60vh",
-        }}
-      >
-        <Loader />
-      </h1>
-    );
+    return <Loader />;
   }
 
   if (errMessage) {
-    return (
-      <h1
-        style={{
-          paddingTop: "20px",
-          textAlign: "center",
-          marginBottom: "60vh",
-        }}
-      >
-        {errMessage}
-      </h1>
-    );
+    return <ErrorMessage message={errMessage} />;
   }
 
   return (
@@ -105,21 +87,27 @@ const TvSeries = () => {
         selected={selected}
         selectHandler={selectHandler}
       />
-      <section className={classes.root}>
-        {series &&
-          series.map((series) => (
-            <div className={classes.cardContainer} key={series.id}>
-              <MovieCard
-                title={series.title || series.name}
-                poster={series.poster_path}
-                date={series.first_air_date || series.release_date}
-                mediaType={series.media_type || "tv"}
-                rating={series.vote_average}
-                id={series.id}
-              />
-            </div>
-          ))}
-      </section>
+
+      {series.length > 0 && (
+        <section>
+          <Grid container spacing={2}>
+            {series?.map((series, index) => (
+              <Grid key={index} item xs={6} sm={4} md={3}>
+                <div className={classes.cardContainer} key={series.id}>
+                  <MovieCard
+                    title={series.title || series.name}
+                    poster={series.poster_path}
+                    date={series.first_air_date || series.release_date}
+                    mediaType={series.media_type || "tv"}
+                    rating={series.vote_average}
+                    id={series.id}
+                  />
+                </div>
+              </Grid>
+            ))}
+          </Grid>
+        </section>
+      )}
 
       <MoviePagination
         numberOfPages={numberOfPages}

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { createTheme, ThemeProvider } from "@material-ui/core";
+import { createTheme, Grid, ThemeProvider } from "@material-ui/core";
 import colors from "../utils/colors";
 import { TextField } from "@material-ui/core";
 import { Button } from "@material-ui/core";
@@ -12,6 +12,7 @@ import axios from "../axios";
 import MovieCard from "../components/MovieCard";
 import MoviePagination from "../components/MoviePagination";
 import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
 
 const darkTheme = createTheme({
   palette: {
@@ -56,34 +57,26 @@ const Search = () => {
     }
   }, [searchText]);
 
-  const fetchSearch = useCallback(
-    async (e) => {
-      // e.preventDefault();
-      if (!searchText) return;
+  const fetchSearch = async (e) => {
+    e.preventDefault();
+    if (!searchText) return;
 
-      try {
-        setErrMessage(null);
-        setLoading(true);
-        const { data } = await axios.get(
-          `/search/${type ? "tv" : "movie"}?api_key=${
-            process.env.REACT_APP_API_KEY
-          }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
-        );
-        setMovies(data.results);
-        setNumberOfPages(data.total_pages);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        setErrMessage(error.message);
-      }
-    },
-    [page, searchText, type]
-  );
-
-  useEffect(() => {
-    fetchSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type, page]);
+    try {
+      setErrMessage(null);
+      setLoading(true);
+      const { data } = await axios.get(
+        `/search/${type ? "tv" : "movie"}?api_key=${
+          process.env.REACT_APP_API_KEY
+        }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+      );
+      setMovies(data.results);
+      setNumberOfPages(data.total_pages);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setErrMessage(error.message);
+    }
+  };
 
   const tabHandler = (tab) => {
     setType(tab);
@@ -95,41 +88,31 @@ const Search = () => {
   };
 
   if (errMessage) {
-    return (
-      <h1
-        style={{
-          paddingTop: "20px",
-          textAlign: "center",
-          marginBottom: "60vh",
-        }}
-      >
-        {errMessage}
-      </h1>
-    );
+    return <ErrorMessage message={errMessage} />;
   }
 
   return (
-    <div>
+    <main>
       <ThemeProvider theme={darkTheme}>
-        {/* <form onSubmit={fetchSearch}> */}
-        <div className={classes.root}>
-          <TextField
-            label="Search ..."
-            variant="filled"
-            className={classes.search}
-            color="primary"
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-          <Button
-            type="submit"
-            onClick={fetchSearch}
-            color="primary"
-            variant="contained"
-          >
-            <SearchIcon />
-          </Button>
-        </div>
-        {/* </form> */}
+        <form onSubmit={fetchSearch}>
+          <div className={classes.root}>
+            <TextField
+              placeholder="Search..."
+              variant="filled"
+              className={classes.search}
+              color="primary"
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            <Button
+              type="submit"
+              onClick={fetchSearch}
+              color="primary"
+              variant="contained"
+            >
+              <SearchIcon />
+            </Button>
+          </div>
+        </form>
 
         <Tabs
           className={classes.tabs}
@@ -143,30 +126,29 @@ const Search = () => {
         </Tabs>
 
         {loading ? (
-          <h1
-            style={{
-              paddingTop: "20px",
-              textAlign: "center",
-              marginBottom: "60vh",
-            }}
-          >
-            <Loader />
-          </h1>
+          <Loader />
         ) : (
           <section className={classes.rootCard}>
-            {movies &&
-              movies.map((movie) => (
-                <div className={classes.cardContainer} key={movie.id}>
-                  <MovieCard
-                    title={movie.title || movie.name}
-                    poster={movie.poster_path}
-                    date={movie.first_air_date || movie.release_date}
-                    mediaType={type ? "tv" : "movie"}
-                    rating={movie.vote_average}
-                    id={movie.id}
-                  />
-                </div>
-              ))}
+            {movies.length > 0 && (
+              <section>
+                <Grid container spacing={2}>
+                  {movies?.map((movie, index) => (
+                    <Grid key={index} item xs={6} sm={4} md={3}>
+                      <div className={classes.cardContainer} key={movie.id}>
+                        <MovieCard
+                          title={movie.title || movie.name}
+                          poster={movie.poster_path}
+                          date={movie.first_air_date || movie.release_date}
+                          mediaType={type ? "tv" : "movie"}
+                          rating={movie.vote_average}
+                          id={movie.id}
+                        />
+                      </div>
+                    </Grid>
+                  ))}
+                </Grid>
+              </section>
+            )}
           </section>
         )}
 
@@ -176,7 +158,7 @@ const Search = () => {
           curPage={page}
         />
       </ThemeProvider>
-    </div>
+    </main>
   );
 };
 

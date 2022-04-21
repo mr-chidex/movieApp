@@ -14,11 +14,6 @@ import colors from "../utils/colors";
 
 const useStyles = makeStyles((theme) => ({
   container: { color: colors.secondary },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   background: {
     width: "100%",
     height: "500px",
@@ -51,12 +46,6 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.6rem",
       fontWeight: "500",
     },
-  },
-  cardRoot: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
   },
   cardContainer: {
     marginBottom: 25,
@@ -170,20 +159,23 @@ export default function Movie({ children }) {
 
           <Grid container spacing={2}>
             {credits?.slice(0, limit)?.map((credit, index) => (
-              <Grid key={index} item xs={6} sm={4} md={2}>
-                <div style={{ backgrColor: "#ccc", minHeight: "10rem" }}>
-                  <img
-                    style={{ width: "100%" }}
-                    src={
+              <Grid key={index} item xs={6} sm={4} md={3}>
+                <div
+                  style={{
+                    backgroundColor: "#ccc",
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundImage: `url(${
                       credit?.profile_path
                         ? `${imageBaseUrl}${credit?.profile_path}`
                         : `${defaultImage}`
-                    }
-                    alt={credit?.name}
-                  />
-
-                  <small>{credit?.name}</small>
-                </div>
+                    })`,
+                    minHeight: "20rem",
+                  }}
+                ></div>
+                <strong style={{ margin: "0.3rem 0", display: "inline-block" }}>
+                  {credit?.name}
+                </strong>
               </Grid>
             ))}
           </Grid>
@@ -195,24 +187,26 @@ export default function Movie({ children }) {
         <section className={classes.similarMovies}>
           <h1> Similar Movies</h1>
 
-          <section>
-            <Grid container spacing={2}>
-              {similarMovies?.map((movie, index) => (
-                <Grid key={index} item xs={6} sm={4} md={3}>
-                  <div className={classes.cardContainer} key={movie.id}>
-                    <MovieCard
-                      title={movie.title || movie.name}
-                      poster={movie.poster_path}
-                      date={movie.first_air_date || movie.release_date}
-                      mediaType={mediaType}
-                      rating={movie?.vote_average?.toFixed(1)}
-                      id={movie.id}
-                    />
-                  </div>
-                </Grid>
-              ))}
-            </Grid>
-          </section>
+          {similarMovies.length > 0 && (
+            <section>
+              <Grid container spacing={2}>
+                {similarMovies?.map((movie, index) => (
+                  <Grid key={index} item xs={6} sm={4} md={3}>
+                    <div className={classes.cardContainer} key={movie.id}>
+                      <MovieCard
+                        title={movie.title || movie.name}
+                        poster={movie.poster_path}
+                        date={movie.first_air_date || movie.release_date}
+                        mediaType={mediaType}
+                        rating={movie?.vote_average?.toFixed(1)}
+                        id={movie.id}
+                      />
+                    </div>
+                  </Grid>
+                ))}
+              </Grid>
+            </section>
+          )}
         </section>
       )}
     </main>

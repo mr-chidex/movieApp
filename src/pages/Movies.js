@@ -8,14 +8,10 @@ import { getMovie } from "../utils/api";
 import MoviePagination from "../components/MoviePagination";
 import Genres from "../components/Genres";
 import Loader from "../components/Loader";
+import { Grid } from "@material-ui/core";
+import ErrorMessage from "../components/ErrorMessage";
 
 const useStyles = makeStyles({
-  root: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-  },
   cardContainer: {
     marginBottom: 25,
   },
@@ -66,31 +62,11 @@ const Movies = () => {
   };
 
   if (loading) {
-    return (
-      <h1
-        style={{
-          paddingTop: "20px",
-          textAlign: "center",
-          marginBottom: "60vh",
-        }}
-      >
-        <Loader />
-      </h1>
-    );
+    return <Loader />;
   }
 
   if (errMessage) {
-    return (
-      <h1
-        style={{
-          paddingTop: "20px",
-          textAlign: "center",
-          marginBottom: "60vh",
-        }}
-      >
-        {errMessage}
-      </h1>
-    );
+    return <ErrorMessage message={errMessage} />;
   }
 
   return (
@@ -106,21 +82,26 @@ const Movies = () => {
         selectHandler={selectHandler}
       />
 
-      <section className={classes.root}>
-        {movies &&
-          movies.map((movie) => (
-            <div className={classes.cardContainer} key={movie.id}>
-              <MovieCard
-                title={movie.title || movie.name}
-                poster={movie.poster_path}
-                date={movie.first_air_date || movie.release_date}
-                mediaType="movie"
-                rating={movie.vote_average}
-                id={movie.id}
-              />
-            </div>
-          ))}
-      </section>
+      {movies.length > 0 && (
+        <section>
+          <Grid container spacing={2}>
+            {movies?.map((movie, index) => (
+              <Grid key={index} item xs={6} sm={4} md={3}>
+                <div className={classes.cardContainer} key={movie.id}>
+                  <MovieCard
+                    title={movie.title || movie.name}
+                    poster={movie.poster_path}
+                    date={movie.first_air_date || movie.release_date}
+                    mediaType="movie"
+                    rating={movie.vote_average}
+                    id={movie.id}
+                  />
+                </div>
+              </Grid>
+            ))}
+          </Grid>
+        </section>
+      )}
 
       <MoviePagination
         numberOfPages={numberOfPages}
