@@ -1,5 +1,4 @@
 # Movie
-
 Movie app built with React
 
 # Demo
